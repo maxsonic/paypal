@@ -470,6 +470,7 @@ type (
 	// PurchaseUnit struct
 	PurchaseUnit struct {
 		ReferenceID string              `json:"reference_id"`
+		InvoiceID   string              `json:"invoice_id"`
 		Amount      *PurchaseUnitAmount `json:"amount,omitempty"`
 	}
 
