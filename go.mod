@@ -1,3 +1,3 @@
-module github.com/maxsonic/paypal/v3
+module github.com/maxsonic/paypal
 
 go 1.12
