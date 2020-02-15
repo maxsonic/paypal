@@ -94,3 +94,21 @@ func (c *Client) CaptureOrder(orderID string, captureOrderRequest CaptureOrderRe
 
 	return capture, nil
 }
+
+// RefundPayment - https://developer.paypal.com/docs/api/payments/v2/#captures_refund
+// Endpoint: POST https://api.sandbox.paypal.com/v2/payments/captures/ID/refund
+func (c *Client) RefundPayment(captureID string, refundRequest RefundRequest) (*RefundResponse, error) {
+	refund := &RefundResponse{}
+
+	c.SetReturnRepresentation()
+	req, err := c.NewRequest("POST", fmt.Sprintf("%s%s", c.APIBase, "/v2/payments/captures/"+captureID+"/refund"), refundRequest)
+	if err != nil {
+		return refund, err
+	}
+
+	if err = c.SendWithAuth(req, refund); err != nil {
+		return refund, err
+	}
+
+	return refund, nil
+}

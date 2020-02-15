@@ -472,6 +472,34 @@ type (
 		ReferenceID string              `json:"reference_id"`
 		InvoiceID   string              `json:"invoice_id"`
 		Amount      *PurchaseUnitAmount `json:"amount,omitempty"`
+		Payments    *Payments           `json:"payments,omitempty"`
+	}
+
+	// Payment struct
+	Payments struct {
+		Captures       []CaptureResponse `json:"captures,omitempty"`
+		Refunds        []RefundResponse  `json:"refunds,omitempty"`
+		Authorizations []Authorization   `json:"authorizations,omitempty"`
+	}
+
+	// RefundRequest struct
+	RefundRequest struct {
+		Amount      *Money `json:"amount,omitempty"`
+		InvoiceID   string `json:"invoice_id,omiempty"`
+		NoteToPayer string `json:"note_to_payer,omiempty"`
+	}
+
+	// CaptureResponse struct
+	// Not Complete, I just mark the ones I need
+	CaptureResponse struct {
+		Status           string                `json:"status"`
+		StatusDetails    *CaptureStatusDetails `json:"status_details,omitempty"`
+		ID               string                `json:"id"`
+		Amount           Amount                `json:"amount,omiempty"`
+		InvoiceID        string                `json:"invoice_id"`
+		CustomID         string                `json:"custom_id"`
+		SellerProtection SellerProtection      `json:"seller_protection,omiempty"`
+		FinalCapture     bool                  `json:"final_capture"`
 	}
 
 	// TaxInfo used for orders.
@@ -734,9 +762,10 @@ type (
 
 	// RefundResponse .
 	RefundResponse struct {
-		ID     string              `json:"id,omitempty"`
-		Amount *PurchaseUnitAmount `json:"amount,omitempty"`
-		Status string              `json:"status,omitempty"`
+		ID        string              `json:"id,omitempty"`
+		Amount    *PurchaseUnitAmount `json:"amount,omitempty"`
+		Status    string              `json:"status,omitempty"`
+		InvoiceID string              `json:"invoice_id,omitempty"`
 	}
 
 	// Related struct
@@ -935,6 +964,7 @@ type (
 		// merchant-onboarding Resource type
 		PartnerClientID string `json:"partner_client_id,omitempty"`
 		MerchantID      string `json:"merchant_id,omitempty"`
+		InvoiceID       string `json:"invoice_id,omitempty"`
 		// Common
 		Links []Link `json:"links,omitempty"`
 	}

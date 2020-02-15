@@ -124,7 +124,6 @@ func (c *Client) Send(req *http.Request, v interface{}) error {
 		io.Copy(w, resp.Body)
 		return nil
 	}
-
 	return json.NewDecoder(resp.Body).Decode(v)
 }
 
